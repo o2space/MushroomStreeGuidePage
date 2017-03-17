@@ -1,0 +1,17 @@
+//
+//  PrefixHeader.pch
+//  仿蘑菇街GuidePage
+//
+//  Created by wukexiu on 17/3/16.
+//  Copyright © 2017年 com.xm.guidepage. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#import "macros.h"
+
+#import "UIView+XMExtension.h"
+#import "UIImageView+XMExtension.h"
+
+#endif /* PrefixHeader_pch */

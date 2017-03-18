@@ -17,6 +17,7 @@
     imgView.clipsToBounds = YES;
     CGRect frame = CGRectMake(0, 0, img.size.width, img.size.height);
     imgView.frame = frame;
+    imgView.layer.shouldRasterize = YES;//解决旋转后边缘出现锯齿
     return imgView;
 }
 

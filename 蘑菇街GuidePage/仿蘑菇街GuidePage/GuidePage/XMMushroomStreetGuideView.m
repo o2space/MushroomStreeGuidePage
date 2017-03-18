@@ -18,10 +18,13 @@
     UIImageView *ivOneBox,*ivOneBoxBottom;
     //第二页
     UIImageView *ivTwoTop,*ivTwo1,*ivTwo2,*ivTwo3,*ivTwoBottom;
+    UIImageView *ivTwoLeft,*ivTwoRight;
     //第三页
     UIImageView *ivThree1,*ivThree2,*ivThree3,*ivThree4,*ivThree5,*ivThree6;
     //第四页
     UIImageView *ivFourTop,*ivFourCenter,*ivFourBottom1,*ivFourBottom2,*ivFourBottom3;
+    UIImageView *ivFourLeft,*ivFourRight;
+    UIButton *ivBtnGo;
     
     UIView *vwPageControl;
     NSMutableArray * pageIndicatorArr;
@@ -120,6 +123,18 @@
         ivTitle.xm_centerX = kScreen_Width / 2.0;
         [vwTwoContent addSubview:ivTitle];
         
+        ivTwoLeft = [UIImageView imageViewWithName:@"guide_two_left"];
+        ivTwoLeft.xm_y = 150;
+        ivTwoLeft.xm_centerX = kScreen_Width / 2.0;
+        ivTwoLeft.alpha = 0;
+        [self addSubview:ivTwoLeft];
+        
+        ivTwoRight = [UIImageView imageViewWithName:@"guide_two_right"];
+        ivTwoRight.xm_y = 150;
+        ivTwoRight.xm_centerX = kScreen_Width / 2.0;
+        ivTwoRight.alpha = 0;
+        [self addSubview:ivTwoRight];
+        
         
         ivTwoTop = [UIImageView imageViewWithName:@"guide_two_top"];
         ivTwoTop.xm_y = 10;
@@ -203,7 +218,26 @@
         ivTitle.xm_centerX = kScreen_Width / 2.0;
         [vwFourContent addSubview:ivTitle];
         
-
+        ivFourLeft = [UIImageView imageViewWithName:@"guide_four_left"];
+        ivFourLeft.xm_y = 130;
+        ivFourLeft.xm_centerX = kScreen_Width / 2.0;
+        ivFourLeft.alpha = 0;
+        [self addSubview:ivFourLeft];
+        
+        ivFourRight = [UIImageView imageViewWithName:@"guide_four_right"];
+        ivFourRight.xm_y = 130;
+        ivFourRight.xm_centerX = kScreen_Width / 2.0;
+        ivFourRight.alpha = 0;
+        [self addSubview:ivFourRight];
+        
+        //ivBtnGo = [UIImageView imageViewWithName:@"guide_btn_go"];
+        
+        ivBtnGo.xm_endY = kScreen_Height - 90;
+        ivBtnGo.xm_centerX = kScreen_Width / 2.0;
+        ivBtnGo.alpha = 0;
+        [self addSubview:ivBtnGo];
+        
+        
         ivFourTop = [UIImageView imageViewWithName:@"guide_four_top"];
         ivFourTop.xm_y =  4;
         ivFourTop.xm_x =  4;
@@ -270,9 +304,10 @@
         [self addSubview:vwPageControl];
     }
     
-    [self bringSubviewToFront:svMain];
+    //[self bringSubviewToFront:svMain];
     [self bringSubviewToFront:vwPhotoBox];
     [self bringSubviewToFront:vwPageControl];
+    [self bringSubviewToFront:ivBtnGo];
 }
 
 - (void)setCurrentPageControlWithOffset:(CGFloat)
@@ -373,6 +408,31 @@ offset{
             ivTwoTop.alpha = 0;
         }
         
+        
+        if (offset < kScreen_Width * 4 / 8.0) {
+            ivTwoRight.alpha = 0;
+            ivTwoLeft.alpha = 0;
+        }else if (offset < kScreen_Width * (8 + 6) / 8.0){
+            ivTwoRight.alpha = 1;
+            ivTwoLeft.alpha = 1;
+        }else if (offset >= kScreen_Width * (8 + 6) / 8.0){
+            ivTwoRight.alpha = 0;
+            ivTwoLeft.alpha = 0;
+        }
+        
+        if (offset < kScreen_Width * 4 / 8.0) {
+            ivTwoRight.xm_centerX = kScreen_Width / 2.0;
+            ivTwoLeft.xm_centerX = kScreen_Width / 2.0;
+        }else if (offset <= kScreen_Width * 8 / 8.0){
+            ivTwoRight.xm_centerX = calculate(kScreen_Width * 4 / 8.0, kScreen_Width + ivTwoRight.xm_w / 2.0 - 20, kScreen_Width * 4 / 8.0, kScreen_Width * 8 / 8.0, offset);
+            ivTwoLeft.xm_centerX = calculate(kScreen_Width / 2.0,  -ivTwoLeft.xm_w / 2.0 + 20, kScreen_Width * 4 / 8.0, kScreen_Width * 8 / 8.0, offset);
+        }else if (offset <= kScreen_Width * (8 + 6) / 8.0){
+            ivTwoRight.xm_centerX = calculate(kScreen_Width + ivTwoRight.xm_w / 2.0 - 20, kScreen_Width  / 2.0, kScreen_Width * 8 / 8.0, kScreen_Width * (8 + 6) / 8.0, offset);
+            ivTwoLeft.xm_centerX = calculate(-ivTwoLeft.xm_w / 2.0 + 20,  -ivTwoLeft.xm_w / 2.0 + 20 - (kScreen_Width / 2.0 + ivTwoLeft.xm_w / 2.0 - 20), kScreen_Width * 8 / 8.0, kScreen_Width * (8 + 6) / 8.0, offset);
+        }else if(offset > kScreen_Width * (8 + 6) / 8.0){
+            ivTwoRight.xm_centerX = kScreen_Width  / 2.0;
+            ivTwoLeft.xm_centerX = -ivTwoLeft.xm_w / 2.0 + 20 - (kScreen_Width / 2.0 + ivTwoLeft.xm_w / 2.0 - 20);
+        }
         
         
         
@@ -580,15 +640,32 @@ offset{
     }
     //第四页
     {
-        if (offset <= kScreen_Width * (8 + 8 + 3) /8.0) {
+        if (offset <= kScreen_Width * (8 + 8 + 3) / 8.0) {
             ivFourTop.alpha = 0;
-        }else if (offset <= kScreen_Width * (8 + 8 + 5) /8.0){
+        }else if (offset <= kScreen_Width * (8 + 8 + 5) / 8.0){
             ivFourTop.alpha = calculate(0, 1, kScreen_Width * (8 + 8 + 3) /8.0, kScreen_Width * (8 + 8 + 5) /8.0, offset);
-        }else if (offset > kScreen_Width * (8 + 8 + 5) /8.0){
+        }else if (offset > kScreen_Width * (8 + 8 + 5) / 8.0){
             ivFourTop.alpha = 1;
         }
         ivFourTop.xm_centerX = vwPhotoBox.xm_w / 2.0;
         ivFourTop.xm_y = (vwPhotoBox.xm_h - 262.5)/2 + 4;
+        
+        
+        if (offset <= kScreen_Width * (8 + 8 + 4) / 8.0) {
+            ivFourRight.alpha = 0;
+            ivFourLeft.alpha = 0;
+        }else if (offset >  kScreen_Width * (8 + 8 + 4) / 8.0){
+            ivFourRight.alpha = 1;
+            ivFourLeft.alpha = 1;
+        }
+        
+        if (offset <= kScreen_Width * (8 + 8 + 4) / 8.0) {
+            ivFourLeft.xm_centerX = kScreen_Width / 2.0;
+            ivFourRight.xm_centerX = kScreen_Width / 2.0;
+        }else if (offset < kScreen_Width * (8 + 8 + 8) / 8.0){
+            ivFourLeft.xm_centerX = calculate(kScreen_Width / 2.0, kScreen_Width / 2.0 - ivFourLeft.xm_w / 2.0 - 60, kScreen_Width * (8 + 8 + 4) / 8.0, kScreen_Width * (8 + 8 + 8) / 8.0, offset);
+            ivFourRight.xm_centerX = calculate(kScreen_Width / 2.0,  kScreen_Width / 2.0 + ivFourRight.xm_w / 2.0 + 60, kScreen_Width * (8 + 8 + 4) / 8.0, kScreen_Width * (8 + 8 + 8) / 8.0, offset);
+        }
         
         
         

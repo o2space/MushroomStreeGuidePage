@@ -230,10 +230,11 @@
         ivFourRight.alpha = 0;
         [self addSubview:ivFourRight];
         
-        //ivBtnGo = [UIImageView imageViewWithName:@"guide_btn_go"];
-        
-        ivBtnGo.xm_endY = kScreen_Height - 90;
+        ivBtnGo = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 180 * kScreen_Width / 375, 45 * kScreen_Width / 375)];
+        ivBtnGo.xm_endY = kScreen_Height - 90 * kScreen_Width / 375;
         ivBtnGo.xm_centerX = kScreen_Width / 2.0;
+        //[ivBtnGo setBackgroundImage:[UIImage imageNamed:@"guide_btn_go"] forState:UIControlStateNormal];
+        [ivBtnGo setImage:[UIImage imageNamed:@"guide_btn_go"] forState:UIControlStateNormal];
         ivBtnGo.alpha = 0;
         [self addSubview:ivBtnGo];
         
@@ -729,6 +730,26 @@ offset{
         }
         ivFourBottom3.xm_x = ivFourTop.xm_x + 52 + 4 + 52 + 4;
         ivFourBottom3.xm_y = ivFourCenter.xm_endY + 8;
+        
+        
+        if (offset < kScreen_Width * (8 + 8 + 4) / 8.0) {
+            ivBtnGo.alpha = 0;
+        }else if (offset >= kScreen_Width * (8 + 8 + 4) / 8.0){
+            ivBtnGo.alpha = 1;
+        }
+        
+        ivBtnGo.transform = CGAffineTransformMakeScale(1.0,1.0);
+        if (offset <= kScreen_Width * (8 + 8 + 4) / 8.0) {
+            ivBtnGo.transform = CGAffineTransformMakeScale(0.0,0.0);
+        }else if (offset <= kScreen_Width * (8 + 8 + 6) / 8.0){
+            CGFloat scale = calculate(0, 1.3, kScreen_Width * (8 + 8 + 4) /8.0, kScreen_Width * (8 + 8 + 6) /8.0, offset);
+            ivBtnGo.transform = CGAffineTransformMakeScale(scale, scale);
+        }else if (offset <= kScreen_Width * (8 + 8 + 8) / 8.0){
+            CGFloat scale = calculate(1.3, 1, kScreen_Width * (8 + 8 + 6) /8.0, kScreen_Width * (8 + 8 + 8) /8.0, offset);
+            ivBtnGo.transform = CGAffineTransformMakeScale(scale, scale);
+        }else{
+            ivBtnGo.transform = CGAffineTransformMakeScale(1.0, 1.0);
+        }
         
     }
     

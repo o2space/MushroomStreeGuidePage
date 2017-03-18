@@ -351,7 +351,7 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/仿蘑菇街GuidePage/Expand/Macros/PrefixHeader.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/仿蘑菇街GuidePage/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "xm.---GuidePage";
+				PRODUCT_BUNDLE_IDENTIFIER = com.xm.GuidePage;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -364,7 +364,7 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/仿蘑菇街GuidePage/Expand/Macros/PrefixHeader.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/仿蘑菇街GuidePage/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "xm.---GuidePage";
+				PRODUCT_BUNDLE_IDENTIFIER = com.xm.GuidePage;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -388,6 +388,7 @@
 				164D25651E7A6C2400B184FC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
